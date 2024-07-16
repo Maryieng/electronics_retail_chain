@@ -17,3 +17,9 @@ class LinkSerializers(serializers.ModelSerializer):
     class Meta:
         model = Link
         fields = '__all__'
+
+    def update(self, instance, validated_data):
+        """ запретит на обновление через API поля Задолженность """
+        if 'debt' in validated_data:
+            validated_data.pop('debt')
+        return super().update(instance, validated_data)
