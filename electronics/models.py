@@ -1,11 +1,11 @@
 from django.db import models
 
-from users.models import User
 
 NULLABLE = {'blank': True, 'null': True}
 
 
 class Product(models.Model):
+    """ Модель продукта """
     name = models.CharField(max_length=150, verbose_name='Название')
     model = models.CharField(max_length=150, verbose_name='Модель')
     create_data = models.DateField(verbose_name='Дата выхода на рынок')
@@ -14,8 +14,8 @@ class Product(models.Model):
         return f'{self.name} {self.model}'
 
     class Meta:
-        verbose_name = "продукт"
-        verbose_name_plural = "продукты"
+        verbose_name = "Продукт"
+        verbose_name_plural = "Продукты"
 
 
 class Link(models.Model):
@@ -37,3 +37,10 @@ class Link(models.Model):
     products = models.ManyToManyField(Product, default=None, verbose_name='Продукты')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')
     debt = models.FloatField(default=0.00, verbose_name='задолженность перед поставщиком', null=True, blank=True)
+
+    def __str__(self) -> str:
+        return f'{self.type_level}'
+
+    class Meta:
+        verbose_name = 'Объект'
+        verbose_name_plural = 'Объекты'

@@ -6,3 +6,4 @@ django-cors-headers
 drf-yasg
 djangorestframework
 djangorestframework-simplejwt
+django-filter
