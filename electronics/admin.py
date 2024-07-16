@@ -1,6 +1,6 @@
-from django.contrib import admin
-from django.urls import reverse
-from django.utils.html import format_html
+from django.contrib import admin   # type: ignore
+from django.urls import reverse   # type: ignore
+from django.utils.html import format_html   # type: ignore
 
 from .models import Link, Product
 
@@ -19,14 +19,14 @@ class LinkAdmin(admin.ModelAdmin):
 
     def provider_link(self, obj):
         if obj.provider:
-            url = reverse('admin:app_link_change', args=[obj.provider.id])
+            url = reverse('admin:electronics_link_change', args=[obj.provider.id])
             return format_html('<a href="{}">{}</a>', url, obj.provider.email)
         return "-"
 
-    provider_link.short_description = 'Поставщик'
+    provider_link.short_description = 'Поставщик'   # type: ignore
 
     def clear_debt(self, request, queryset):
         queryset.update(debt=0.00)
         self.message_user(request, "Задолженность перед поставщиком успешно очищена у выбранных объектов.")
 
-    clear_debt.short_description = 'Очистить задолженность перед поставщиком'
+    clear_debt.short_description = 'Очистить задолженность перед поставщиком'   # type: ignore

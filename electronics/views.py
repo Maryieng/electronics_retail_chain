@@ -1,6 +1,6 @@
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend   # type: ignore
+from rest_framework import viewsets   # type: ignore
+from rest_framework.permissions import IsAuthenticated   # type: ignore
 
 from electronics.filter import LinkFilter
 from electronics.models import Product, Link
@@ -21,4 +21,3 @@ class LinkViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     filter_backends = (DjangoFilterBackend,)
     filterset_class = LinkFilter
-

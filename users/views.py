@@ -1,13 +1,17 @@
-from rest_framework import generics, status
+from rest_framework import generics, status   # type: ignore
+from rest_framework.permissions import AllowAny, IsAuthenticated   # type: ignore
+
 from users.models import User
+from users.permissions import IsAdmin
 from users.serializers import UserSerializer
-from rest_framework.response import Response
+from rest_framework.response import Response   # type: ignore
 
 
 class UserCreateAPIView(generics.CreateAPIView):
     """Создание пользователя"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         """Переопределение метода для сохранения пароля в БД"""
@@ -29,15 +33,18 @@ class UserUpdateAPIView(generics.UpdateAPIView):
     """Изменение пользователя"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    permission_classes = [IsAuthenticated | IsAdmin,]
 
 
 class UserRetrieveAPIView(generics.RetrieveAPIView):
     """ Просмотр данных пользователя """
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated | IsAdmin,]
 
 
 class UserDeleteAPIView(generics.DestroyAPIView):
     """Удаление пользователя"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    permission_classes = [IsAdmin,]

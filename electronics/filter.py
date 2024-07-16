@@ -1,4 +1,4 @@
-import django_filters
+import django_filters   # type: ignore
 
 from .models import Link
 

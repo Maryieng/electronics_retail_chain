@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import _locale
 
 load_dotenv()
 
@@ -121,3 +122,5 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'users.User'
+
+_locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])   # type: ignore
