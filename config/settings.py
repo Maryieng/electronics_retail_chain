@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import _locale
 
 load_dotenv()
 
@@ -24,6 +25,10 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'rest_framework_simplejwt',
+    'django_filters',
+
+    'users',
+    'electronics',
 ]
 
 MIDDLEWARE = [
@@ -60,8 +65,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('USER_DATABASES'),
+        'PASSWORD': os.getenv('PASSWORD_DATABASES'),
     }
 }
 
@@ -80,7 +87,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -103,7 +110,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://read-and-write.example.com',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -114,3 +121,6 @@ REST_FRAMEWORK = {
     ]
 }
 
+AUTH_USER_MODEL = 'users.User'
+
+_locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])   # type: ignore
